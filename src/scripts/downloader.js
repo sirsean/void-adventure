@@ -4,8 +4,8 @@ import path from 'path';
 import sharp from 'sharp';
 
 const MAX_DRIFTERS = 3507;
-const DRIFTERS_PATH = path.join('src', 'assets', 'drifters');
-const IMAGES_PATH = path.join('src', 'assets', 'images');
+const DRIFTERS_PATH = path.join('public', 'drifters');
+const IMAGES_PATH = path.join('public', 'images');
 
 async function downloadAndSaveDrifter(id) {
     return fetch(`https://omniscient.fringedrifters.com/main/metadata/${id}.json`)
