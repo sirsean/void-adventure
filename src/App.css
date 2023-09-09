@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -14,10 +14,28 @@
   text-align: center;
 }
 
+.DrifterLookup input[type="text"] {
+  border: none;
+  outline: none;
+  border-bottom: 4px solid grey;
+  font-size: 1.5em;
+  width: 4em;
+  text-align: center;
+  padding: 0.25em;
+}
+
+.DrifterLookup input[type="text"]:focus {
+  border-bottom: 4px solid yellow;
+}
+
 .DrifterLookup img {
   width: 100%;
 }
 
-.DrifterLookup ul {
+.DrifterLookup img.empty {
+  opacity: 0.35;
+}
+
+.DrifterLookup .attribute {
   text-align: left;
 }

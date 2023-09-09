@@ -18,6 +18,26 @@ class Drifter {
   attribute(type) {
     return this.attributes.filter(({ trait_type }) => (trait_type == type))?.[0]?.value;
   }
+
+  get graphic() {
+    return this.attribute("Graphic");
+  }
+
+  get accessory() {
+    if (this.isMechSuit) {
+      return this.mechSuit;
+    } else {
+      return this.attribute("Accessory");
+    }
+  }
+
+  get isMechSuit() {
+    return !!this.attribute("Mech Suit")
+  }
+
+  get mechSuit() {
+    return this.attribute("Mech Suit").replace(/''/g, '');
+  }
 }
 
 function DrifterLookup({ slotIndex }) {
@@ -47,20 +67,26 @@ function DrifterLookup({ slotIndex }) {
       <form onSubmit={onSubmit}>
         <input type="text" name="drifterId" placeholder="Drifter ID" />
       </form>
+      {!drifter &&
+      <div>
+        <h3>--</h3>
+        <div><img className="empty" src="/img/empty-seat.png" /></div>
+      </div>
+      }
       {drifter &&
       <div>
         <h3>{drifter.name}</h3>
         <div><img src={imgSrc} /></div>
-        <ul>
-          {["Graphic", "Accessory"].map(trait_type => {
-            return (
-              <li key={trait_type}>
-                <strong>{trait_type}</strong>
-                {drifter.attribute(trait_type)}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="attribute">
+          <strong>Graphic</strong>
+          //
+          {drifter.graphic}
+        </div>
+        <div className="attribute">
+          <strong>Accessory</strong>
+          //
+          {drifter.accessory}
+        </div>
       </div>
       }
     </div>
@@ -70,6 +96,10 @@ function DrifterLookup({ slotIndex }) {
 function App() {
   return (
     <>
+      <header>
+        <h1>Void Adventure</h1>
+      </header>
+      <h2>Crew Selection</h2>
       <div className="row">
         <DrifterLookup slotIndex={0} />
         <DrifterLookup slotIndex={1} />
