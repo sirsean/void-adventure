@@ -9,15 +9,22 @@
   display: flex;
 }
 
+.Intro {
+  text-align: left;
+  padding: 0 15em;
+}
+
 .DrifterLookup {
   flex: 1;
   text-align: center;
+  margin: 0.2em;
 }
 
 .DrifterLookup input[type="text"] {
+  border-radius: 1px;
   border: none;
   outline: none;
-  border-bottom: 4px solid grey;
+  border-bottom: 4px solid rgba(242, 244, 246);
   font-size: 1.5em;
   width: 4em;
   text-align: center;
@@ -25,7 +32,7 @@
 }
 
 .DrifterLookup input[type="text"]:focus {
-  border-bottom: 4px solid yellow;
+  border-bottom: 4px solid rgba(242, 201, 76);
 }
 
 .DrifterLookup img {
@@ -38,4 +45,19 @@
 
 .DrifterLookup .attribute {
   text-align: left;
+}
+
+.StartMission {
+  padding: 1.5em;
+}
+
+.Scenario .narrative {
+  text-align: left;
+  padding: 0 5em;
+  font-style: italic;
+}
+
+.Scenario .results {
+  text-align: left;
+  padding: 0 5em;
 }

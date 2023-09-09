@@ -8,9 +8,10 @@
   font-family: gt-pressura, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 1.25em;
 
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(242, 244, 246);
+  background: rgb(35, 35, 32);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -41,18 +42,22 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 2px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #ff7d32;
+  color: #242424;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+button:disabled {
+  background-color: #a59687;
+}
 button:hover {
-  border-color: #646cff;
+  border-color: #f43c18;
 }
 button:focus,
 button:focus-visible {
