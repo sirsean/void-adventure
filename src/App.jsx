@@ -72,6 +72,7 @@ function DrifterLookup({ slotIndex }) {
         }))
     }
   }, [drifterId]);
+  const emptyImgSrc = `/img/empty-seat-${slotIndex}.png`;
   const drifter = state.getDrifter(slotIndex);
   const imgSrc = `/images/${drifterId}.jpg`;
   return (
@@ -84,7 +85,7 @@ function DrifterLookup({ slotIndex }) {
       {!drifter &&
       <div>
         <h3>--</h3>
-        <div><img className="empty" src="/img/empty-seat.png" /></div>
+        <div><img className="empty" src={emptyImgSrc} /></div>
       </div>
       }
       {drifter &&
