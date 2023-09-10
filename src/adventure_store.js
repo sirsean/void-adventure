@@ -63,6 +63,10 @@ export const configureStore = () => {
             }
             return state;
         },
+        RESET_SCENARIOS: (state, _) => {
+            state.scenarios = new Array();
+            return state;
+        }
     };
 
     initStore(actions, {

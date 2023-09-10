@@ -210,6 +210,10 @@ function ShowScenarios() {
 function ShowResult() {
   const [stateMap, dispatch] = useStore();
   const state = new State(stateMap);
+  const onClick = (e) => {
+    e.preventDefault();
+    dispatch('RESET_SCENARIOS', {});
+  }
   if (state.isMissionComplete) {
     const finalScore = state.scenarios
       .map(s => s.crewScore(state.crew))
@@ -219,6 +223,9 @@ function ShowResult() {
         <hr />
         <h2>Final Result!</h2>
         <p>Your crew got a final score of {finalScore}.</p>
+        <div>
+          <button onClick={onClick}>Go Again</button>
+        </div>
       </div>
     )
   }
