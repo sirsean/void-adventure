@@ -171,7 +171,7 @@ function ShowScenario({ scenario }) {
     dispatch('ADD_SCENARIO', { scenario: startScenario(state.nextScenarioIndex(), roll()) });
   }
   const score = scenario.crewScore(state.crew);
-  const buffs = [...new Set(state.crew.map(d => scenario.drifterBuffs(d).map(b => b.name)).flat())];
+  const buffs = scenario.crewAppliedBuffs(state.crew);
   const isNext = !state.isMissionComplete && scenario.index == state.scenarios.length - 1;
   return (
     <div className="Scenario">

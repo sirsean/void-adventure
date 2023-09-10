@@ -17,6 +17,26 @@ class Scenario {
         return this.data.narrative;
     }
 
+    crewAppliedBuffs(crew) {
+        if (this.type == "TOP_DRIFTER") {
+            let best = null;
+            crew.forEach(drifter => {
+                const score = this.drifterTotalBuff(drifter);
+                const buffs = this.drifterBuffs(drifter).map(b => b.name).sort();
+                if (!best || score > best.score) {
+                    best = {
+                        drifter,
+                        score,
+                        buffs,
+                    }
+                }
+            });
+            return best.buffs;
+        } else {
+            return [...new Set(crew.map(d => this.drifterBuffs(d).map(b => b.name)).flat())].sort();
+        }
+    }
+
     drifterBuffs(drifter) {
         return [
             this.data.graphicBuffs[drifter.graphic],
