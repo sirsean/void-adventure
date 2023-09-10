@@ -1,4 +1,5 @@
 #root {
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   padding: 2rem;
@@ -7,18 +8,25 @@
 
 .row {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .Intro {
   text-align: left;
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .DrifterLookup {
   flex: 1;
+  max-width: 50%;
   text-align: center;
-  margin: 0.2em;
+  padding: 0.2em;
 }
 
 .DrifterLookup input[type="text"] {
@@ -46,6 +54,15 @@
 
 .DrifterLookup .attribute {
   text-align: left;
+  font-size: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 1200px) {
+  .DrifterLookup .attribute {
+    font-size: unset;
+  }
 }
 
 .StartMission {
@@ -54,11 +71,21 @@
 
 .Scenario .narrative {
   text-align: left;
-  padding: 0 5em;
   font-style: italic;
+}
+
+@media (min-width: 1200px) {
+  .Scenario .narrative {
+    padding: 0 5em;
+  }
 }
 
 .Scenario .results {
   text-align: left;
-  padding: 0 5em;
+}
+
+@media (min-width: 1200px) {
+  .Scenario .results {
+    padding: 0 5em;
+  }
 }

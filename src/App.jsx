@@ -132,7 +132,7 @@ function CrewSelector() {
   return (
     <div>
       {!state.isMissionStarted && <h2>Crew Selection</h2>}
-      <div className="row">
+      <div className="row justify-center">
         <DrifterLookup slotIndex={0} />
         <DrifterLookup slotIndex={1} />
         <DrifterLookup slotIndex={2} />
