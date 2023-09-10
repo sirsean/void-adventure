@@ -39,6 +39,10 @@ export class State {
         return this.scenarios[index];
     }
 
+    isCurrentScenarioIndex(index) {
+        return index == this.scenarios.length - 1;
+    }
+
     get isMissionStarted() {
         return this.scenarios.length > 0;
     }

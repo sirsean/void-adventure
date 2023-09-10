@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useStore } from './store';
 import { State } from './adventure_store';
 import { MAX_SCENARIO, startScenario } from './scenarios';
@@ -51,6 +51,20 @@ class Drifter {
   }
 }
 
+function FadeIn({ waitMs, children }) {
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      elementRef.current.classList.add('show');
+    }, (waitMs || 50));
+  }, [waitMs]);
+
+  return (
+    <div ref={elementRef} className="fade-in">{children}</div>
+  )
+}
+
 function DrifterLookup({ slotIndex }) {
   const [ stateMap, dispatch ] = useStore();
   const state = new State(stateMap);
@@ -62,7 +76,7 @@ function DrifterLookup({ slotIndex }) {
       setDrifterId(id);
     }
   }
-  const onBlur = (e) => {
+  const onBlurOrChange = (e) => {
     const id = e.target.value;
     if (id) {
       setDrifterId(id);
@@ -85,7 +99,7 @@ function DrifterLookup({ slotIndex }) {
     <div className="DrifterLookup">
       {!state.isMissionStarted &&
         <form onSubmit={onSubmit}>
-          <input type="text" tabIndex={slotIndex+1} name="drifterId" placeholder="Drifter ID" onBlur={onBlur} />
+          <input type="text" tabIndex={slotIndex+1} name="drifterId" placeholder="Drifter ID" onBlur={onBlurOrChange} onChange={onBlurOrChange} />
         </form>
       }
       {!drifter &&
@@ -163,13 +177,18 @@ function StartMission() {
   }
 }
 
-function ShowScenario({ scenario }) {
+function ShowScenario({ scenario, isCurrent }) {
   const [ stateMap, dispatch ] = useStore();
   const state = new State(stateMap);
   const onClick = (e) => {
     e.preventDefault();
     dispatch('ADD_SCENARIO', { scenario: startScenario(state.nextScenarioIndex(), roll()) });
   }
+  useEffect(() => {
+    if (isCurrent) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }, [isCurrent])
   const score = scenario.crewScore(state.crew);
   const buffs = scenario.crewAppliedBuffs(state.crew);
   const isNext = !state.isMissionComplete && scenario.index == state.scenarios.length - 1;
@@ -202,7 +221,10 @@ function ShowScenarios() {
   const state = new State(stateMap);
   return (
     <div>
-      {state.scenarios.map(s => <div key={s.name}><hr /><ShowScenario scenario={s} /></div>)}
+      {state.scenarios.map((s, i) => <div key={s.name}>
+        <hr />
+        <FadeIn><ShowScenario scenario={s} isCurrent={state.isCurrentScenarioIndex(i)} /></FadeIn>
+      </div>)}
     </div>
   )
 }
@@ -219,14 +241,16 @@ function ShowResult() {
       .map(s => s.crewScore(state.crew))
       .reduce((a, s) => (a + s), 0);
     return (
-      <div className="ShowResult">
-        <hr />
-        <h2>Final Result!</h2>
-        <p>Your crew got a final score of {finalScore}.</p>
-        <div>
-          <button onClick={onClick}>Go Again</button>
+      <FadeIn waitMs={2000}>
+        <div className="ShowResult">
+          <hr />
+          <h2>Final Result!</h2>
+          <p>Your crew got a final score of {finalScore}.</p>
+          <div>
+            <button onClick={onClick}>Go Again</button>
+          </div>
         </div>
-      </div>
+      </FadeIn>
     )
   }
 }
