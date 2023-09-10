@@ -55,9 +55,15 @@ function DrifterLookup({ slotIndex }) {
   const [ stateMap, dispatch ] = useStore();
   const state = new State(stateMap);
   const [ drifterId, setDrifterId ] = useState(null);
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const id = e.target.children.drifterId.value;
+    if (id) {
+      setDrifterId(id);
+    }
+  }
+  const onBlur = (e) => {
+    const id = e.target.value;
     if (id) {
       setDrifterId(id);
     }
@@ -79,7 +85,7 @@ function DrifterLookup({ slotIndex }) {
     <div className="DrifterLookup">
       {!state.isMissionStarted &&
         <form onSubmit={onSubmit}>
-          <input type="text" name="drifterId" placeholder="Drifter ID" />
+          <input type="text" tabIndex={slotIndex+1} name="drifterId" placeholder="Drifter ID" onBlur={onBlur} />
         </form>
       }
       {!drifter &&
